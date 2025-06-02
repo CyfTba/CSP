@@ -1432,6 +1432,10 @@ int F_35_2(){
     }
     return 0;
 }
+
+int F_36_1(){
+        
+}
 int main(){ 
     F_35_2();
     return 0;
