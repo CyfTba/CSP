@@ -1434,9 +1434,74 @@ int F_35_2(){
 }
 
 int F_36_1(){
-        
+    int n,k;
+    cin>>n>>k;
+    for(int i=0;i<k;i++){
+        int x,y;
+        cin>>x>>y;
+        string s;
+        cin>>s;
+        for(auto c:s){
+            if(c=='f'){
+                if(y<n){
+                    y++;
+                }
+            }
+            if(c=='r'){
+                if(x<n){
+                    x++;
+                }
+            }
+            if(c=='b'){
+                if(y>1){
+                    y--;
+                }
+            }
+            if(c=='l'){
+                if(x>1){
+                    x--;
+                }
+            }
+        }
+        cout<<x<<" "<<y<<endl;
+    }
+    return 0;
 }
+
+///////没想明白
+int F_36_2(){
+    int n;
+    cin>>n;
+    int a[100010]{0};
+    int b[100010]{0};
+    for(int i=0;i<n+1;i++){
+        cin>>a[i];
+    }
+    for(int i=1;i<=n;i++){
+        cin>>b[i];
+    }
+    int a_sum[100010]{0};
+    int b_sum[100010]{0};
+    for(int i=1;i<n+1;i++){
+        a_sum[i]=a_sum[i-1]+a[i];
+        b_sum[i]=b_sum[i-1]+b[i];
+    }
+    for(int i=1;i<n+1;i++){
+        int w=0;
+        for(int j=1;j<=n;j++){
+            if(j<i){
+                w=max(w,a_sum[j]-b_sum[j]+a[0]);
+            }
+            if(j>=i){   
+                w=max(w,a_sum[j]-b_sum[j]+b[i]+a[0]);
+            }
+        }
+        cout<<max(w,a[0])<<" ";
+    }
+    return 0;
+}
+
 int main(){ 
-    F_35_2();
+    F_36_2();
     return 0;
 }
