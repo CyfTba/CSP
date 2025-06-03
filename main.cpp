@@ -1501,7 +1501,104 @@ int F_36_2(){
     return 0;
 }
 
+int F_37_1(){
+    int b,c,l,r;
+    cin>>b>>c>>l>>r;
+    long long sum=0;
+    if(l%2!=0){
+        l++;
+    }
+    while(l<=r){
+        sum=sum+pow(l,2)+b*l+c;
+        l+=2;
+    }
+    cout<<2*sum<<endl;
+    return 0;
+}
+
+//背包问题，不过每个物品可以重复拿
+int F_37_2(){
+    int n,m;
+    cin>>n>>m;
+    vector<int>v;
+    for(int i=0;i<m;i++){
+        int temp;
+        cin>>temp;
+        v.push_back(temp);
+    }
+    vector<int>w;
+    for(int i=1;i<=m;i++){
+        w.push_back(i);
+    }
+    vector<vector<int>>dp(m+1,vector<int>(n+1,0));
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
+            if(w[i-1]<=j){
+                int temp=j/w[i-1];
+                dp[i][j]=max(max(dp[i-1][j],dp[i-1][j-w[i-1]]+v[i-1]),v[i-1]*temp+dp[i-1][j-temp*w[i-1]]);
+            }
+            else{
+                dp[i][j]=dp[i-1][j];
+            }
+        }
+    }
+    cout<<dp[m][n]<<endl;
+    return 0;
+}
+
+class node{
+    public:
+    string name;
+    string val;
+};
+int F_37_3(){
+    int n;
+    cin>>n;
+    unordered_map<string,string> ma;
+    for(int i=0;i<n;i++){
+        int p;
+        string name;
+        string val;
+        cin>>p;
+        if(p==1||p==2){
+            cin>>name;
+            getline(cin,val);
+            if(val[0]==' '){
+                val=val.substr(1);//去掉前面的空格
+            }
+        }
+        else{
+            cin>>name;
+        }
+        vector<string> v;
+        string temp;
+        stringstream ss(val);
+        while(ss>>temp){
+            v.push_back(temp);
+        }
+
+        if(p==1){
+            string temp;
+            for(auto val:v){
+                if(val[0]=='$'){
+                    temp+=ma[val.substr(1)];
+                }
+                else{
+                    temp+=val;
+                }
+            }
+            ma[name]=temp;
+        }
+        if(p==2){
+
+        }
+        if(p==3){
+            cout<<ma[name].size()%1000000007<<endl;
+        }
+    }
+    return 0;
+}
 int main(){ 
-    F_36_2();
+    F_37_3();
     return 0;
 }
